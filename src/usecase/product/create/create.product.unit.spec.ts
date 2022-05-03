@@ -16,8 +16,8 @@ const MockRepository = () => {
 describe("Unit test create product usecase", () => {
 
     it("Should create a product", async () => {
-        const customerRepository = MockRepository();
-        const usecase = new CreateProductUseCase(customerRepository)
+        const productRepository = MockRepository();
+        const usecase = new CreateProductUseCase(productRepository)
 
         const input: InputCreateProductDto = {
             type: "a",
@@ -37,8 +37,8 @@ describe("Unit test create product usecase", () => {
     })
 
     it("Should throw on error when name is missing", async () => {
-        const customerRepository = MockRepository();
-        const usecase = new CreateProductUseCase(customerRepository)
+        const productRepository = MockRepository();
+        const usecase = new CreateProductUseCase(productRepository)
         const input: InputCreateProductDto = {
             type: "a",
             name: "",
@@ -49,8 +49,8 @@ describe("Unit test create product usecase", () => {
     })
 
     it("Should throw on error when price is not greater than zero", async () => {
-        const customerRepository = MockRepository();
-        const usecase = new CreateProductUseCase(customerRepository)
+        const productRepository = MockRepository();
+        const usecase = new CreateProductUseCase(productRepository)
         const input: InputCreateProductDto = {
             type: "a",
             name: "Product A",
@@ -59,6 +59,4 @@ describe("Unit test create product usecase", () => {
 
         expect(() => usecase.execute(input)).rejects.toThrow("Price must be greater than zero")
     })
-
-   
 })

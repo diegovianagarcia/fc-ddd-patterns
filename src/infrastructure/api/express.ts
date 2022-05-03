@@ -16,7 +16,7 @@ export let sequelize: Sequelize
 async function setupDb() {
     sequelize = new Sequelize({
         dialect: "sqlite",
-        storage: ":memory",
+        storage: ":memory:",
         logging: false,
     })
     await sequelize.addModels([CustomerModel, ProductModel])
