@@ -62,4 +62,47 @@ describe("E2E test for product", () => {
     expect(product2.name).toBe("Product B")
     expect(product2.price).toBe(20)
   })
+
+  it("should update a product", async () => {
+    let response
+    response = await request(app)
+      .post("/product/")
+      .send({
+        name: "Product A",
+        price: 25,
+        type: "a"
+      })
+    expect(response.status).toBe(200)
+    const productId = response.body.id
+
+    response = await request(app)
+      .put(`/product/`)
+      .send({
+        id: productId,
+        name: "Product Updated",
+        price: 30
+      })
+    expect(response.status).toBe(200)
+  })
+
+  it("should find a product", async () => {
+    let response
+    response = await request(app)
+      .post("/product")
+      .send({
+        name: "Product A",
+        price: 25,
+        type: "a"
+      })
+    expect(response.status).toBe(200)
+    const productId = response.body.id
+
+    response = await request(app)
+      .get(`/product/${productId}`)
+      .send()
+
+    expect(response.status).toBe(200)
+    expect(response.body.name).toBe("Product A")
+    expect(response.body.price).toBe(25)
+  })
 })
